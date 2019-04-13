@@ -649,7 +649,7 @@ class CppGenerator : public BaseGenerator {
         }
       }
       case BASE_TYPE_UNION: {
-        return type.enum_def->name + "Union";
+        return WrapInNameSpace(*type.enum_def) + "Union";
       }
       default: { return GenTypeBasic(type, true); }
     }
@@ -2181,7 +2181,7 @@ class CppGenerator : public BaseGenerator {
   std::string GenUnionUnpackVal(const FieldDef &afield,
                                 const char *vec_elem_access,
                                 const char *vec_type_access) {
-    return afield.value.type.enum_def->name + "Union::UnPack(" + "_e" +
+    return WrapInNameSpace(*afield.value.type.enum_def) + "Union::UnPack(" + "_e" +
            vec_elem_access + ", " +
            EscapeKeyword(afield.name + UnionTypeFieldSuffix()) + "()" +
            vec_type_access + ", _resolver)";
